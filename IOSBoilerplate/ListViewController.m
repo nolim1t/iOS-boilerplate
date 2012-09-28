@@ -30,7 +30,7 @@
 
 @implementation ListViewController
 
-@synthesize table;
+@synthesize tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,11 +54,10 @@
 	
 	if (_refreshHeaderView == nil) {
 		
-		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.table.bounds.size.height, self.view.frame.size.width, self.table.bounds.size.height)];
+		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
 		view.delegate = self;
-		[self.table addSubview:view];
+		[self.tableView addSubview:view];
 		_refreshHeaderView = view;
-		[view release];
 		
 	}
 	
@@ -77,7 +76,7 @@
 - (void)doneLoadingTableViewData {
 	//  model should call this when its done loading
 	_reloading = NO;
-	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.table];
+	[_refreshHeaderView egoRefreshScrollViewDataSourceDidFinishedLoading:self.tableView];
 }
 
 
@@ -132,10 +131,5 @@
 	_refreshHeaderView = nil;
 }
 
-- (void)dealloc {
-    [table release];
-	_refreshHeaderView = nil;
-    [super dealloc];
-}
 
 @end
